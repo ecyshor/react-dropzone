@@ -127,7 +127,8 @@ const Dropzone = () => {
   const uploadFiles = async () => {
     uploadModalRef.current.style.display = "block";
     uploadRef.current.innerHTML = "File(s) Uploading...";
-    for (let file in validFiles) {
+    for (let file of validFiles) {
+      console.table(file);
       const formData = new FormData();
       formData.append("file", file);
       const uploadUrl = await axios.post(
@@ -135,7 +136,10 @@ const Dropzone = () => {
         { name: file.name }
       );
       axios
-        .post(uploadUrl.data, formData, {
+        .put(uploadUrl.data, file, {
+          headers: {
+            "Content-Type": "application/octet-stream",
+          },
           onUploadProgress: (progressEvent) => {
             const uploadPercentage = Math.floor(
               (progressEvent.loaded / progressEvent.total) * 100
