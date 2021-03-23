@@ -131,7 +131,7 @@ const Dropzone = () => {
       const formData = new FormData();
       formData.append("file", file);
       const uploadUrl = await axios.post(
-        "https://sign.upload.nicu.dev/generateUploadUrl",
+        "https://europe-west6-personal-upload-1616496537742.cloudfunctions.net/generateUploadUrl",
         { name: file.name }
       );
       axios
